@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31815.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application Business Rules", "Application Business Rules", "{1B7BF33D-9F25-4871-9159-C35F90C75C6D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enterprise Business Rules", "Enterprise Business Rules", "{830EFE30-38C3-41FD-B111-2AA57DF3CF72}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frameworks And Drivers", "Frameworks And Drivers", "{D188CF39-785B-40F4-A849-5F5723171001}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interface Adapters", "Interface Adapters", "{FF7740AA-347C-438A-80D3-0348436C1D0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Entities", "Chat.Entities\Chat.Entities.csproj", "{0B7DD2C3-FE27-4C12-922A-B43FED78571A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{6A1C8BAE-7352-42B6-B120-BFDE5A77443B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Repositories.EFCore", "Chat.Repositories.EFCore\Chat.Repositories.EFCore.csproj", "{20CC51BA-1C16-41F9-8F19-1EB82F22720E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B7DD2C3-FE27-4C12-922A-B43FED78571A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B7DD2C3-FE27-4C12-922A-B43FED78571A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B7DD2C3-FE27-4C12-922A-B43FED78571A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B7DD2C3-FE27-4C12-922A-B43FED78571A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20CC51BA-1C16-41F9-8F19-1EB82F22720E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20CC51BA-1C16-41F9-8F19-1EB82F22720E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20CC51BA-1C16-41F9-8F19-1EB82F22720E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20CC51BA-1C16-41F9-8F19-1EB82F22720E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0B7DD2C3-FE27-4C12-922A-B43FED78571A} = {830EFE30-38C3-41FD-B111-2AA57DF3CF72}
+		{6A1C8BAE-7352-42B6-B120-BFDE5A77443B} = {FF7740AA-347C-438A-80D3-0348436C1D0F}
+		{20CC51BA-1C16-41F9-8F19-1EB82F22720E} = {6A1C8BAE-7352-42B6-B120-BFDE5A77443B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {42984716-2FEB-4E3C-A18E-A95B3B0118A2}
+	EndGlobalSection
+EndGlobal
