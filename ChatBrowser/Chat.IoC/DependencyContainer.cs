@@ -22,7 +22,7 @@ namespace Chat.IoC
             )
         {
             services.AddDbContext<ChatContext>(
-                options => options.UseSqlServer(configuration.GetConnectionString(""))
+                options => options.UseSqlServer(configuration.GetConnectionString("ChatDB"))
             );
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
