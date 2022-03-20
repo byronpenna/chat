@@ -11,9 +11,9 @@ namespace Chat.UseCases.CreateUser
     {
         public CreateUserValidator()
         {
-            RuleFor(u => u.Email).NotEmpty().WithMessage("You must define email in user creation process");
+            RuleFor(u => u.RequestData.Email).NotEmpty().WithMessage("You must define email in user creation process");
             // regular expresion for email
-            RuleFor(u => u.username).NotEmpty().WithMessage("You must define user name ");
+            RuleFor(u => u.RequestData.username).NotEmpty().WithMessage("You must define user name ");
 
         }
     }

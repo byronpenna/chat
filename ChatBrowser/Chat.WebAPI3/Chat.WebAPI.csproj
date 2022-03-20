@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Chat.Controllers\Chat.Controllers.csproj" />
     <ProjectReference Include="..\Chat.IoC\Chat.IoC.csproj" />
     <ProjectReference Include="..\Chat.WebExceptionsPresenter\Chat.WebExceptionsPresenter.csproj" />
   </ItemGroup>

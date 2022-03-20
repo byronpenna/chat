@@ -1,5 +1,7 @@
+using Chat.Entities.Exceptions;
 using Chat.IoC;
 using Chat.WebExceptionsPresenter;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,7 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Chat.WebApi
+namespace Chat.WebAPI
 {
     public class Startup
     {
@@ -29,14 +31,23 @@ namespace Chat.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers(Filters.Register);
+            services.AddControllers(options => 
+                options.Filters.Add(
+                    new APIExceptionFilterAttribute(
+                    new Dictionary<Type, IExceptionHandler>
+                    {
+                        { typeof(GeneralException),new GeneralExceptionHandler() },
+                        { typeof(ValidationException),new ValidationExceptionHandler() }
+                    }
+                    )
+                )
+            );
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Chat.WebApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Chat.WebAPI", Version = "v1" });
             });
-
             services.AddChatServices(Configuration);
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +57,7 @@ namespace Chat.WebApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Chat.WebApi v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Chat.WebAPI v1"));
             }
 
             app.UseHttpsRedirection();

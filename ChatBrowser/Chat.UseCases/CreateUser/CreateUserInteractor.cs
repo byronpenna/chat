@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Chat.UseCases.CreateUser
 {
-    public class CreateUserInteractor : IRequestHandler<CreateUserInputPort, int>
+    public class CreateUserInteractor : AsyncRequestHandler<CreateUserInputPort>
     {
         readonly IUserRepository UserRepository;
         readonly IUnitOfWork UnitOfWork;
@@ -20,16 +20,16 @@ namespace Chat.UseCases.CreateUser
             UserRepository = userRepository;   
             UnitOfWork = unitOfWork;
         }
-        public async Task<int> Handle(
+        protected async override Task Handle(
             CreateUserInputPort request, 
             CancellationToken cancellationToken)
         {
             User user = new User
             {
-                Id = request.id,
-                Email = request.Email,
-                UserName = request.username,
-                Password = request.Password
+                Id = request.RequestData.id,
+                Email = request.RequestData.Email,
+                UserName = request.RequestData.username,
+                Password = request.RequestData.Password
             };
             UserRepository.Create(user);
             try
@@ -39,7 +39,7 @@ namespace Chat.UseCases.CreateUser
             {
                 throw new GeneralException("Error creating user", ex.Message);
             }
-            return user.Id;
+            request.OutputPort.Handle(user.Id);
         }
     }
 }

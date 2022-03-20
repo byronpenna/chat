@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Chat.WebApi
+namespace Chat.WebAPI
 {
     public class Program
     {

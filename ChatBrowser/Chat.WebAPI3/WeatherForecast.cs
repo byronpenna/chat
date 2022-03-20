@@ -1,6 +1,6 @@
 using System;
 
-namespace Chat.WebApi
+namespace Chat.WebAPI
 {
     public class WeatherForecast
     {
