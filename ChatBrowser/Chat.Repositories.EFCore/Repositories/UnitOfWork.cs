@@ -18,6 +18,7 @@ namespace Chat.Repositories.EFCore.Repositories
         Task<int> IUnitOfWork.SaveChangesAsync()
         {
             return Context.SaveChangesAsync();
+            
         }
     }
 }

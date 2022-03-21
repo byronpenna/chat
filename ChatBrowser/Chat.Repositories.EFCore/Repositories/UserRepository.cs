@@ -22,11 +22,29 @@ namespace Chat.Repositories.EFCore.Repositories
             Context.Add(user);
         }
 
+        void IUserRepository.Delete(User user)
+        {
+            throw new NotImplementedException();
+        }
+        User IUserRepository.Login(User user)
+        {
+            var x = (from u in Context.Users
+                    where u.UserName == user.UserName 
+                    && u.Password == user.Password
+                    orderby u.Id 
+                    select u).ToList();
+            return x.Count > 0 ? x[0]: null;
+        }
         IEnumerable<User> IUserRepository.GetUsersBySpecification(Specification<User> specification)
         {
             var ExpressionDelegate = specification.Expression.Compile();
             return Context.Users.Where(ExpressionDelegate);
 
+        }
+
+        void IUserRepository.Update(User user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

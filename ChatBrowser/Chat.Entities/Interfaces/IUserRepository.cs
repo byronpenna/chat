@@ -11,6 +11,9 @@ namespace Chat.Entities.Interfaces
     public interface IUserRepository
     {
         void Create(User user);
+        void Update(User user);
+        void Delete(User user);
+        User Login(User user);
         IEnumerable<User> GetUsersBySpecification(Specification<User> specification);
     }
 }

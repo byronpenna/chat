@@ -1,5 +1,6 @@
 ﻿using Chat.Presenters;
 using Chat.UseCases.CreateUser;
+using Chat.UseCases.Login;
 using Chat.UseCasesDTOs.CreateUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,13 @@ namespace Chat.Controllers
             await Mediator.Send(new CreateUserInputPort(userparams, Presenter));
             return Presenter.Content;
         }
-
+        [HttpPost("get-by-email-pass")]
+        public async Task<ActionResult<int>> GetByEmailPass(LoginParams logParams)
+        {
+            LoginPresenter Presenter = new LoginPresenter();
+            var res = new LoginInputPort(logParams, Presenter);
+            await Mediator.Send(res);
+            return Presenter.Content;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chat.Entities.POCOEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,6 @@ namespace Chat.UseCases.Common.Ports
     public interface IOutputPort<InteractorResponseType>
     {
         void Handle(InteractorResponseType response);
+        
     }
 }

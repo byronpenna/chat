@@ -8,6 +8,7 @@ using Chat.Repositories.EFCore.DataContext;
 using Chat.Repositories.EFCore.Repositories;
 using Chat.UseCases.Common.Behaviors;
 using Chat.UseCases.CreateUser;
+using Chat.UseCases.Login;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -26,8 +27,13 @@ namespace Chat.IoC
             );
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            // user 
             services.AddMediatR(typeof(CreateUserInteractor));
             services.AddValidatorsFromAssembly(typeof(CreateUserValidator).Assembly);
+            // login
+            /*services.AddMediatR(typeof(LoginInteractor));
+            services.AddValidatorsFromAssembly(typeof(LoginValidator).Assembly);*/
+            //#
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             return services;
         }
