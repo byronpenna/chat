@@ -4,14 +4,16 @@ using Chat.Repositories.EFCore.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Chat.Repositories.EFCore.Migrations
 {
     [DbContext(typeof(ChatContext))]
-    partial class ChatContextModelSnapshot : ModelSnapshot
+    [Migration("20220322015451_2")]
+    partial class _2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,19 +37,19 @@ namespace Chat.Repositories.EFCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ChatRooms");
+                    b.ToTable("ChatRoom");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2022, 3, 21, 21, 30, 7, 835, DateTimeKind.Local).AddTicks(7125),
+                            CreatedDate = new DateTime(2022, 3, 21, 19, 54, 50, 521, DateTimeKind.Local).AddTicks(9970),
                             Name = "Default"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2022, 3, 21, 21, 30, 7, 838, DateTimeKind.Local).AddTicks(6836),
+                            CreatedDate = new DateTime(2022, 3, 21, 19, 54, 50, 525, DateTimeKind.Local).AddTicks(5961),
                             Name = "Second Chat room"
                         });
                 });
@@ -77,7 +79,7 @@ namespace Chat.Repositories.EFCore.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Message");
                 });
 
             modelBuilder.Entity("Chat.Entities.POCOEntities.User", b =>
@@ -109,7 +111,7 @@ namespace Chat.Repositories.EFCore.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2022, 3, 21, 21, 30, 7, 839, DateTimeKind.Local).AddTicks(9694),
+                            CreatedDate = new DateTime(2022, 3, 21, 19, 54, 50, 528, DateTimeKind.Local).AddTicks(9455),
                             Email = "byronpenna@gmail.com",
                             Password = "byronpenna123",
                             UserName = "byronpenna"
@@ -117,7 +119,7 @@ namespace Chat.Repositories.EFCore.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2022, 3, 21, 21, 30, 7, 840, DateTimeKind.Local).AddTicks(879),
+                            CreatedDate = new DateTime(2022, 3, 21, 19, 54, 50, 529, DateTimeKind.Local).AddTicks(3375),
                             Email = "diana@gmail.com",
                             Password = "diana123",
                             UserName = "diana_alfaro"

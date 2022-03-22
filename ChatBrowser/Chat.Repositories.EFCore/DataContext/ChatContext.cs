@@ -18,20 +18,34 @@ namespace Chat.Repositories.EFCore.DataContext
 
         }
         public DbSet<User> Users { get; set; }
-
+        public DbSet<ChatRoom> ChatRooms { get; set; }
+        public DbSet<Message> Messages { get; set; }
         protected override void OnModelCreating(
             ModelBuilder modelBuilder
             )
         {
+            /*
+            modelBuilder.Entity<Message>().ToTable("Message");
+            modelBuilder.Entity<ChatRoom>().ToTable("ChatRoom");*/
             // user
             modelBuilder.Entity<User>().Property(u => u.UserName).IsRequired();
             modelBuilder.Entity<User>().Property(u => u.Email).IsRequired();
+            // messages
+            
+            modelBuilder.Entity<Message>()
+                .HasOne<User>()
+                .WithMany().HasForeignKey(m => m.UserId);
+            modelBuilder.Entity<Message>()
+                .HasOne<ChatRoom>()
+                .WithMany().HasForeignKey(m => m.RoomId);
+
             // chatroom
             modelBuilder.Entity<ChatRoom>().Property(c => c.Name).IsRequired();
             
             // seed
             modelBuilder.Entity<ChatRoom>().HasData(
-                new ChatRoom { Id = 1, Name="Default"}
+                new ChatRoom { Id = 1, Name="Default"},
+                new ChatRoom { Id = 2, Name = "Second Chat room" }
                 );
 
             modelBuilder.Entity<User>().HasData(

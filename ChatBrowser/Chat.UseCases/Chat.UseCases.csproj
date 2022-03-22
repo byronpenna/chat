@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Chat.Entities\Chat.Entities.csproj" />
+    <ProjectReference Include="..\Chat.Repositories.EFCore\Chat.Repositories.EFCore.csproj" />
     <ProjectReference Include="..\Chat.UseCasesDTOs\Chat.UseCasesDTOs.csproj" />
   </ItemGroup>
 
