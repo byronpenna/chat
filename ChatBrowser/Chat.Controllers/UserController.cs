@@ -14,6 +14,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Chat.UseCases.CreateMessage;
 using Chat.UseCases.GetMessage;
+using Chat.UseCasesDTOs.GetStock;
+using Chat.UseCases.GetStock;
 
 namespace Chat.Controllers
 {
@@ -63,9 +65,12 @@ namespace Chat.Controllers
             return presenter.Content;
         }
         [HttpPost("get-stock-by-command")]
-        public async Task<ActionResult<string>> getStockByCommand()
+        public async Task<ActionResult<string>> getStockByCommand(GetMessageParams getStockParams)
         {
-
+            GetStockPresenter presenter = new GetStockPresenter();
+            var res = new GetStockInputPort(getStockParams, presenter);
+            var x = await Mediator.Send(res);
+            return presenter.Content;
         }
     }
 }

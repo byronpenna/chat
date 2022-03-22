@@ -1,6 +1,7 @@
 ﻿using Chat.Entities.POCOEntities;
 using Chat.UseCases.Common.Ports;
 using Chat.UseCasesDTOs.GetMessage;
+using Chat.UseCasesDTOs.GetStock;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,18 @@ using System.Threading.Tasks;
 
 namespace Chat.UseCases.GetStock
 {
-    public class GetStockInputPort: IInputPort<GetMessageByRoomParams, List<Message>>
+    public class GetStockInputPort: IInputPort<GetMessageParams, string>
     {
 
-        public GetMessageByRoomParams RequestData { get; }
-        public IOutputPort<List<Message>> OutputPort { get; }
+        public GetMessageParams RequestData { get; }
+        public IOutputPort<string> OutputPort { get; }
 
         public GetStockInputPort(
-            GetMessageByRoomParams requestData, 
-            IOutputPort<List<Message>> outputPort)
+            GetMessageParams requestData, 
+            IOutputPort<string> outputPort)
         {
+            RequestData = requestData;
+            OutputPort = outputPort;
 
         }
     }

@@ -16,6 +16,7 @@ namespace Chat.ChatWebBrowser.Controllers
         }
         public IActionResult Room(int room)
         {
+
             return View("Room", room);
         }
         public IActionResult login()
