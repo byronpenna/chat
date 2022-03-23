@@ -49,8 +49,13 @@
         console.log("btn Send");
         let room = "@Model";
         let user = document.getElementById("user").value;
+        console.log("Room to send",room);
         let message = document.getElementById("message").value;
-
+        let encriptedMessage = btoa(message);
+        console.log("Encripted",encriptedMessage);
+        let legible = atob(encriptedMessage);
+        console.log("Legible",legible);
+        
         connection.invoke("SendMessage",room,user,message).catch(
             (error) => { console.error(error.toString()); }
 

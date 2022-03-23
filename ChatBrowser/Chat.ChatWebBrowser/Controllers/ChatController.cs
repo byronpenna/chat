@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Chat.Entities.POCOEntities;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace Chat.ChatWebBrowser.Controllers
 {
@@ -17,7 +18,13 @@ namespace Chat.ChatWebBrowser.Controllers
         };
         public async Task<IActionResult> Index()
         {
+            var userID = HttpContext.Session.GetString("userID");
+            if(userID == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
+            //int userID = HttpContext.Session.getS;
             string url = "https://localhost:44316/api/User/get-rooms";
             ApiHelper.InicializeClient();
             string message = "";
@@ -46,6 +53,7 @@ namespace Chat.ChatWebBrowser.Controllers
                 messages = JsonConvert.DeserializeObject<List<Message>>(x);
             }
             ViewBag.messages = messages;
+            ViewBag.roomID = room;
             //
             return View("Room", room);
         }

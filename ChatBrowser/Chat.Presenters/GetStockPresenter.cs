@@ -14,8 +14,7 @@ namespace Chat.Presenters
             Content = messages;
             if(
                 messages != "Stock code is not valid"
-                || messages != "Unexpected error"
-
+                && messages != "Unexpected error"
                 )
             {
                 Content = "APPL.US quote is $" + messages + " per share ";

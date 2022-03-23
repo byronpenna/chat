@@ -40,7 +40,6 @@ namespace Chat.UseCases.Login
             }
             catch (Exception ex)
             {
-
                 throw new GeneralException("An error has been ocurred", ex.Message);
             }
             int id = -1;

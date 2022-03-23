@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Chat.Entities.POCOEntities;
+using Microsoft.AspNetCore.Http;
 
 namespace Chat.ChatWebBrowser
 {
@@ -16,6 +17,9 @@ namespace Chat.ChatWebBrowser
         }
         public async Task SendMessage(string room,string user,string message)
         {
+            var ses = Context.GetHttpContext().Session;
+            var userID = Context.GetHttpContext().Session.GetString("userID");
+
             try
             {
                 bool save = true;
@@ -26,10 +30,10 @@ namespace Chat.ChatWebBrowser
                     int i = message.IndexOf("=");
                     //int strlength = message.Length - i + 1;
                     string code = message.Substring(i + 1);
-                    string url = "https://localhost:44316/api/User/get-stock-by-command";
+                    string url = "https://localhost:44316/api/User/get-stock-by-command?stockCode="+ code;
                     ApiHelper.InicializeClient();
-                    HttpContent content = new StringContent("{\"stockCode\":\"" + code + "\"}", System.Text.Encoding.UTF8, "application/json");
-                    using (HttpResponseMessage response = await ApiHelper.apiClient.PostAsync(url, content))
+                    //HttpContent content = new StringContent("{\"stockCode\":\"" + code + "\"}", System.Text.Encoding.UTF8, "application/json");
+                    using (HttpResponseMessage response = await ApiHelper.apiClient.GetAsync(url))
                     {
                         message = await response.Content.ReadAsStringAsync();
                     }
@@ -45,9 +49,8 @@ namespace Chat.ChatWebBrowser
                     {
                         content = message,
                         createdDate = DateTime.Now,
-                        UserId = 1,
-                        RoomId = 1
-                    
+                        UserId = Convert.ToInt32(userID),
+                        RoomId = Convert.ToInt32(room)
                     };
                     string jsonToSend = JsonConvert.SerializeObject(messageToInsert);
                     HttpContent content = new StringContent(jsonToSend, System.Text.Encoding.UTF8, "application/json");
@@ -72,5 +75,6 @@ namespace Chat.ChatWebBrowser
             await Clients.Group(room).SendAsync("ShowWho", $"Alguien se conecto{Context.ConnectionId}");
 
         }
+
     }
 }

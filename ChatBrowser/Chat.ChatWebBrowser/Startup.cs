@@ -6,9 +6,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using Chat.IoC;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Chat.Repositories.EFCore.DataContext;
+using Chat.Entities.POCOEntities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chat.ChatWebBrowser
 {
@@ -26,7 +30,13 @@ namespace Chat.ChatWebBrowser
         {
             services.AddControllersWithViews();
             services.AddSignalR();
-            //services.AddIdentity<IdentityUser,IdentityRole>();
+            services.AddChatServices(Configuration);
+            //services.AddDbContext<ChatContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ChatDB")));
+            //services.AddIdentity<IdentityUser,IdentityRole>().AddUserStore<User>();
+            services.AddDistributedMemoryCache();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(1);//You can set Time   
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,8 +56,9 @@ namespace Chat.ChatWebBrowser
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseSession();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

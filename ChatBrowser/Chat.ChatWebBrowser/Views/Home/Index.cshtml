@@ -1,8 +1,32 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <div class="row align-content-center">
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <h1>Login</h1>
+            <form method="post" action="/Home/Login">
+                <div class="mb-3">
+                    <label class="form-label">
+                        User name
+                    </label>
+                    <input type="text" class="form-control" name="txtUserName" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">
+                        Pass
+                    </label>
+                    <input type="text" class="form-control" name="txtPass"/>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn-primary btn">
+                        Login
+                    </button>
+                </div>
+            </form>
+            <div>
+                @ViewBag.error
+            </div>
+        </div>
+    </div>
 </div>
