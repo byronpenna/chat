@@ -36,13 +36,14 @@ namespace Chat.Controllers
         [HttpPost("create-user")]
         public async Task<ActionResult<int>> CreateUser(CreateUserParams userparams)
         {
+            
             CreateUserPresenter Presenter = new CreateUserPresenter();
-
-            await Mediator.Send(new CreateUserInputPort(userparams, Presenter));
+            var x = new CreateUserInputPort(userparams, Presenter);
+            await Mediator.Send(x);
             return Presenter.Content;
         }
         [HttpPost("get-by-email-pass")]
-        public async Task<ActionResult<int>> GetByEmailPass(LoginParams logParams)
+        public async Task<ActionResult<User>> GetByEmailPass(LoginParams logParams)
         {
             LoginPresenter Presenter = new LoginPresenter();
             var res = new LoginInputPort(logParams, Presenter);
@@ -53,7 +54,7 @@ namespace Chat.Controllers
         [HttpPost("save-message")]
         public async Task<ActionResult<int>> SaveMessage(CreateMessageParams messageparams)
         {
-            LoginPresenter Presenter = new LoginPresenter();
+            CreateMessagePresenter Presenter = new CreateMessagePresenter();
             var res = new CreateMessageInputPort(messageparams, Presenter);
             await Mediator.Send(res);
             return Presenter.Content;

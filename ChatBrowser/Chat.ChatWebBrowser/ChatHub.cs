@@ -39,7 +39,6 @@ namespace Chat.ChatWebBrowser
                     string code = message.Substring(i + 1);
                     string url = this._APIConfig.Value.url + "User/get-stock-by-command?stockCode=" + code;
                     ApiHelper.InicializeClient();
-                    //HttpContent content = new StringContent("{\"stockCode\":\"" + code + "\"}", System.Text.Encoding.UTF8, "application/json");
                     using (HttpResponseMessage response = await ApiHelper.apiClient.GetAsync(url))
                     {
                         message = await response.Content.ReadAsStringAsync();

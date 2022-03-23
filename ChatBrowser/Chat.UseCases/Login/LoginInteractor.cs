@@ -42,12 +42,8 @@ namespace Chat.UseCases.Login
             {
                 throw new GeneralException("An error has been ocurred", ex.Message);
             }
-            int id = -1;
-            if(logedUser != null)
-            {
-                id = logedUser.Id;
-            }
-            request.OutputPort.Handle(id);
+            
+            request.OutputPort.Handle(logedUser);
             return Task.FromResult(logedUser);
         }
     }

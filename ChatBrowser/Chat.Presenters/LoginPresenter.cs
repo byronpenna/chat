@@ -7,11 +7,15 @@ using System.Threading.Tasks;
 
 namespace Chat.Presenters
 {
-    public class LoginPresenter:IPresenter<int,int>
+    public class LoginPresenter:IPresenter<User,User>
     {
-        public int Content { get; set; }
-        public void Handle(int response)
+        public User Content { get; set; }
+        public void Handle(User response)
         {
+            if(response != null)
+            {
+                response.Password = "";
+            }
             Content = response;
         }
     }

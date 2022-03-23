@@ -2,6 +2,8 @@
 using Chat.Entities.Interfaces;
 using Chat.Entities.POCOEntities;
 using Chat.Repositories.EFCore.Repositories;
+using Chat.UseCases.Common.Validators;
+using FluentValidation;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -18,15 +20,22 @@ namespace Chat.UseCases.CreateMessage
 
         readonly IMessageRepository MessageRepository;
         readonly IUnitOfWork UnitOfWork;
-        public CreateMessageInteractor(IMessageRepository messageRepository, IUnitOfWork unitOfWork)
+        readonly IEnumerable<IValidator<CreateMessageInputPort>> Validators;
+        public CreateMessageInteractor(
+            IMessageRepository messageRepository, 
+            IUnitOfWork unitOfWork,
+            IEnumerable<IValidator<CreateMessageInputPort>> validators
+            )
         {
             MessageRepository = messageRepository;
             UnitOfWork = unitOfWork;
+            Validators = validators; 
         }
         protected async override Task Handle(
             CreateMessageInputPort request,
             CancellationToken cancellationToken)
         {
+            var x = await Validator<CreateMessageInputPort>.Validate(request, Validators);
 
             Message message = new Message
             {

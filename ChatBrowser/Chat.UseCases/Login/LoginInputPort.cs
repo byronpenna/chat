@@ -1,4 +1,5 @@
-﻿using Chat.UseCases.Common.Ports;
+﻿using Chat.Entities.POCOEntities;
+using Chat.UseCases.Common.Ports;
 using Chat.UseCasesDTOs.CreateUser;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Chat.UseCases.Login
 {
-    public class LoginInputPort : IInputPort<LoginParams, int>
+    public class LoginInputPort : IInputPort<LoginParams, User>
     {
 
         public LoginParams RequestData { get; }
-        public IOutputPort<int> OutputPort { get; } 
+        public IOutputPort<User> OutputPort { get; } 
 
-        public LoginInputPort(LoginParams requestData,IOutputPort<int> outputPort)
+        public LoginInputPort(LoginParams requestData,IOutputPort<User> outputPort)
         {
             RequestData = requestData;
             OutputPort = outputPort;    

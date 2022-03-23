@@ -16,16 +16,21 @@ namespace Chat.WebExceptionsPresenter
         {
             var Exception = context.Exception as ValidationException;
             StringBuilder Builder = new StringBuilder();
+            string errorDetail = "";
             foreach(var Failure in Exception.Errors)
             {
-                Builder.AppendLine(
-                   String.Format("Propiedad {0}. Error {1}", Failure.PropertyName, Failure.ErrorMessage)
-                    );
+                //Builder.AppendLine();
+                errorDetail = String.Format("Propiedad {0}. Error {1}",
+                   Failure.PropertyName,// you should split to take only the last one 
+                   Failure.ErrorMessage
+
+                   );
+                break;
             }
             return SetResult(context, 
                 StatusCodes.Status400BadRequest, 
                 "Error in input data", 
-                Builder.ToString());
+                errorDetail);
 
         }
 

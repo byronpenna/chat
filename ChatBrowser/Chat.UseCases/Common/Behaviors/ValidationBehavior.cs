@@ -22,14 +22,7 @@ namespace Chat.UseCases.Common.Behaviors
         public Task<TResponse> Handle(TRequest request, 
             CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            List<ValidationFailure> Failures = Validators.Select(
-                v => v.Validate(request)
-                ).SelectMany(r => r.Errors).Where(f => f != null).ToList();
             
-            if (Failures.Any())
-            {
-                throw new ValidationException(Failures);
-            }
             return next();
         }
     }

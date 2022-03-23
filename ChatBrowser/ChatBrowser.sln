@@ -27,17 +27,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presenters", "Presenters", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.WebExceptionsPresenter", "Chat.WebExceptionsPresenter\Chat.WebExceptionsPresenter.csproj", "{598FE09E-1AAE-4E07-8AC1-DD102EB954BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Presenters", "Chat.Presenters\Chat.Presenters.csproj", "{5447ED44-561D-4484-A33E-F9E72C05CBF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Presenters", "Chat.Presenters\Chat.Presenters.csproj", "{5447ED44-561D-4484-A33E-F9E72C05CBF4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controllers", "Controllers", "{3E1F7C94-F24B-4063-8548-80B643737A32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Controllers", "Chat.Controllers\Chat.Controllers.csproj", "{9C4E4344-5738-43E6-92DA-0ADBF7A9D96D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Controllers", "Chat.Controllers\Chat.Controllers.csproj", "{9C4E4344-5738-43E6-92DA-0ADBF7A9D96D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{F55BA1A3-9B63-4D3C-9177-1D1BBF1E47F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.WebApi", "Chat.WebApi\Chat.WebApi.csproj", "{408F76FD-9447-40E2-A661-4106EC5E24D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.WebApi", "Chat.WebApi\Chat.WebApi.csproj", "{408F76FD-9447-40E2-A661-4106EC5E24D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.ChatWebBrowser", "Chat.ChatWebBrowser\Chat.ChatWebBrowser.csproj", "{94C5DE6F-1887-4B78-8EA7-B845FBDDF79F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.ChatWebBrowser", "Chat.ChatWebBrowser\Chat.ChatWebBrowser.csproj", "{94C5DE6F-1887-4B78-8EA7-B845FBDDF79F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{7D3707EA-C464-4E68-8378-470F32516278}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

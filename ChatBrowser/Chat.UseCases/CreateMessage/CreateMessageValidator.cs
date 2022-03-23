@@ -11,7 +11,20 @@ namespace Chat.UseCases.CreateMessage
     {
         public CreateMessageValidator()
         {
-            RuleFor(u => u.RequestData.Content).NotEmpty().WithMessage("You must define content");
+            RuleFor(u => u.RequestData.Content.ToString())
+                .NotEmpty()
+                .WithMessage("You must define a message");
+            RuleFor(u => u.RequestData.RoomId)
+                .NotEmpty()
+                .WithMessage("Room must define a room");
+
+            RuleFor(u => u.RequestData.UserId)
+                .NotEmpty()
+                .WithMessage("Room must define a user");
+        }
+        public bool isNumber(string n)
+        {
+            return true;
         }
     }
 }

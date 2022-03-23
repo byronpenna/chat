@@ -1,6 +1,8 @@
 ﻿using Chat.Entities.Exceptions;
 using Chat.Entities.Interfaces;
 using Chat.Entities.POCOEntities;
+using Chat.UseCases.Common.Validators;
+using FluentValidation;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -15,15 +17,24 @@ namespace Chat.UseCases.CreateUser
     {
         readonly IUserRepository UserRepository;
         readonly IUnitOfWork UnitOfWork;
-        public CreateUserInteractor(IUserRepository userRepository,IUnitOfWork unitOfWork)
+
+        readonly IEnumerable<IValidator<CreateUserInputPort>> Validators;
+        public CreateUserInteractor(IUserRepository userRepository,
+            IUnitOfWork unitOfWork,
+
+            IEnumerable<IValidator<CreateUserInputPort>> validators
+            )
         {
             UserRepository = userRepository;   
             UnitOfWork = unitOfWork;
+            Validators = validators;
         }
         protected async override Task Handle(
             CreateUserInputPort request, 
             CancellationToken cancellationToken)
         {
+             await Validator<CreateUserInputPort>.Validate(request, Validators);
+
             User user = new User
             {
                 Id = request.RequestData.id,

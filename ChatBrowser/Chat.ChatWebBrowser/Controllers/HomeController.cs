@@ -27,26 +27,40 @@ namespace Chat.ChatWebBrowser.Controllers
         }
         public async Task<IActionResult> Login()
         {
+
+            var userID = HttpContext.Session.GetString("userID");
+            if(userID != null)
+            {
+                return RedirectToAction("Index", "Chat");
+            }
+
             string url = this._APIConfig.Value.url+"User/get-by-email-pass";
             ApiHelper.InicializeClient();
             string responseContent = "";
+            string strError = "";
             User usr = new User()
             {
                 UserName = Request.Form["txtUserName"],
                 Password = Encryptor.MD5Hash(Request.Form["txtPass"])
             };
             HttpContent content = new StringContent(JsonConvert.SerializeObject(usr), System.Text.Encoding.UTF8, "application/json");
+            User logedUser = null;
             using (HttpResponseMessage response = await ApiHelper.apiClient.PostAsync(url,content))
             {
                 responseContent = await response.Content.ReadAsStringAsync();
+
+                logedUser = JsonConvert.DeserializeObject<User>(responseContent);
             }
 
-            if(responseContent == "-1")
+            if(logedUser == null)
             {
-                ViewBag.error = "Invalid credentials";
-                return RedirectToAction("Index");
+                strError = "Invalid credentials";
+                return RedirectToAction("Index","Home", new { error = strError });
             }
-            HttpContext.Session.SetString("userID",responseContent);
+
+            HttpContext.Session.SetString("userID",logedUser.Id.ToString());
+            HttpContext.Session.SetString("userName", logedUser.UserName);
+
             return RedirectToAction("Index","Chat");
             //return View();
         }
@@ -60,29 +74,71 @@ namespace Chat.ChatWebBrowser.Controllers
                 Email = Request.Form["txtEmail"]
             };
             string url = this._APIConfig.Value.url + "User/create-user";
-            string responseContent = "";
+            User responseContent = null;
+            bool error = false;
+            ApiError apiError = null;
+            string message="";
+            string strError = "";
             HttpContent content = new StringContent(JsonConvert.SerializeObject(usr), System.Text.Encoding.UTF8, "application/json");
             using (HttpResponseMessage response = await ApiHelper.apiClient.PostAsync(url, content))
             {
-                responseContent = await response.Content.ReadAsStringAsync();
-            }
-            HttpContext.Session.SetString("userID", responseContent);
-            return RedirectToAction("Index", "Chat");
+                try { 
 
+                    message = await response.Content.ReadAsStringAsync();
+                    responseContent = JsonConvert.DeserializeObject<User>(message);
+                    if(responseContent.Id == 0)
+                    {
+                        error = true;
+                    }
+                }
+                catch (Exception)
+                {
+                    error = true;
+                }
+
+                //
+            }
+
+            if (error)
+            {
+                strError = "unhandle exception";
+                try
+                {
+
+                    apiError = JsonConvert.DeserializeObject<ApiError>(message);
+                    if(apiError.detail != "")
+                    {
+                        strError = apiError.detail;
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+                return RedirectToAction("Register", "Home", new { error = strError });
+            }
+
+
+            HttpContext.Session.SetString("userID", responseContent.Id.ToString());
+            HttpContext.Session.SetString("userName", usr.UserName);
+
+            return RedirectToAction("Index", "Chat");
         }
-        public IActionResult Register()
+        public IActionResult Register(string error = "")
         {
-            
+            ViewBag.error = error;
             return View();
         }
         public IActionResult logout()
         {
             HttpContext.Session.SetString("userID", null);
+            HttpContext.Session.SetString("userName", null);
+
             return RedirectToAction("Index");
         }
-        public IActionResult Index()
+        public IActionResult Index(string error = "")
         {
-            var y = HttpContext.Session;
+            ViewBag.error = error;
             return View();
         }
 
@@ -91,7 +147,6 @@ namespace Chat.ChatWebBrowser.Controllers
             
             var y = HttpContext.Session.GetString("userID");
             return View();
-
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

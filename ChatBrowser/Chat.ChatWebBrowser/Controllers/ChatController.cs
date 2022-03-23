@@ -24,7 +24,8 @@ namespace Chat.ChatWebBrowser.Controllers
         public async Task<IActionResult> Index()
         {
             var userID = HttpContext.Session.GetString("userID");
-            if(userID == null)
+            var userName = HttpContext.Session.GetString("userName");
+            if (userID == null)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -42,12 +43,14 @@ namespace Chat.ChatWebBrowser.Controllers
             }
 
             ViewBag.Rooms = chatRooms;
+            ViewBag.UserName = userName;
             return View();
         }
         public async Task<IActionResult> Room(int room)
         {
             ApiHelper.InicializeClient();
             string responseContent = "";
+            var userName = HttpContext.Session.GetString("userName");
             List<Message> messages = null;
             string url = this._APIConfig.Value.url + "User/get-message-by-room?roomID=" + room;
             HttpContent content = new StringContent("{}", System.Text.Encoding.UTF8, "application/json");
@@ -59,6 +62,7 @@ namespace Chat.ChatWebBrowser.Controllers
             }
             ViewBag.messages = messages;
             ViewBag.roomID = room;
+            ViewBag.UserName = userName;
             //
             return View("Room", room);
         }
