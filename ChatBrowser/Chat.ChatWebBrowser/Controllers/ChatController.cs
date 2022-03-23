@@ -6,16 +6,21 @@ using System.Threading.Tasks;
 using Chat.Entities.POCOEntities;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 
 namespace Chat.ChatWebBrowser.Controllers
 {
     public class ChatController : Controller
     {
-        public static Dictionary<int, string> Rooms = new Dictionary<int, string>()
+
+        private readonly ILogger<HomeController> _logger;
+        private readonly IOptions<MyAPIConfig> _APIConfig;
+        public ChatController(ILogger<HomeController> logger, IOptions<MyAPIConfig> config)
         {
-            {1,"Beers" },
-            {2,"Software" }
-        };
+            _APIConfig = config;
+            _logger = logger;
+        }
         public async Task<IActionResult> Index()
         {
             var userID = HttpContext.Session.GetString("userID");
@@ -25,7 +30,7 @@ namespace Chat.ChatWebBrowser.Controllers
             }
 
             //int userID = HttpContext.Session.getS;
-            string url = "https://localhost:44316/api/User/get-rooms";
+            string url = this._APIConfig.Value.url + "User/get-rooms";
             ApiHelper.InicializeClient();
             string message = "";
             List<ChatRoom> chatRooms = null;
@@ -44,7 +49,7 @@ namespace Chat.ChatWebBrowser.Controllers
             ApiHelper.InicializeClient();
             string responseContent = "";
             List<Message> messages = null;
-            string url = "https://localhost:44316/api/User/get-message-by-room?roomID=" + room;
+            string url = this._APIConfig.Value.url + "User/get-message-by-room?roomID=" + room;
             HttpContent content = new StringContent("{}", System.Text.Encoding.UTF8, "application/json");
             using (HttpResponseMessage response = await ApiHelper.apiClient.GetAsync(url))
             {

@@ -12,20 +12,22 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Chat.Entities.POCOEntities;
 using Chat.ChatWebBrowser.Security;
+using Microsoft.Extensions.Options;
 
 namespace Chat.ChatWebBrowser.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IOptions<MyAPIConfig> _APIConfig;
+        public HomeController(ILogger<HomeController> logger, IOptions<MyAPIConfig> config)
         {
+            _APIConfig = config;
             _logger = logger;
         }
         public async Task<IActionResult> Login()
         {
-            string url = "https://localhost:44316/api/User/get-by-email-pass";
+            string url = this._APIConfig.Value.url+"User/get-by-email-pass";
             ApiHelper.InicializeClient();
             string responseContent = "";
             User usr = new User()
@@ -57,7 +59,7 @@ namespace Chat.ChatWebBrowser.Controllers
                 Password = Encryptor.MD5Hash(Request.Form["txtPass"]),
                 Email = Request.Form["txtEmail"]
             };
-            string url = "https://localhost:44316/api/User/create-user";
+            string url = this._APIConfig.Value.url + "User/create-user";
             string responseContent = "";
             HttpContent content = new StringContent(JsonConvert.SerializeObject(usr), System.Text.Encoding.UTF8, "application/json");
             using (HttpResponseMessage response = await ApiHelper.apiClient.PostAsync(url, content))
@@ -86,8 +88,10 @@ namespace Chat.ChatWebBrowser.Controllers
 
         public IActionResult Privacy()
         {
+            
             var y = HttpContext.Session.GetString("userID");
             return View();
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

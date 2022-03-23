@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Chat.IoC\Chat.IoC.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="API\" />
+  </ItemGroup>
+
 </Project>

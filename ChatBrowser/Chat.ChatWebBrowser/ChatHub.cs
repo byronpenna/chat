@@ -5,11 +5,19 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Chat.Entities.POCOEntities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Chat.ChatWebBrowser
 {
+
     public class ChatHub:Hub
     {
+        private readonly IOptions<MyAPIConfig> _APIConfig;
+        public ChatHub( IOptions<MyAPIConfig> config)
+        {
+            _APIConfig = config;
+        }
         public decimal getPrice()
         {
             decimal price = 93.42m;
@@ -29,7 +37,7 @@ namespace Chat.ChatWebBrowser
                     save = false;
                     int i = message.IndexOf("=");
                     string code = message.Substring(i + 1);
-                    string url = "https://localhost:44316/api/User/get-stock-by-command?stockCode="+ code;
+                    string url = this._APIConfig.Value.url + "User/get-stock-by-command?stockCode=" + code;
                     ApiHelper.InicializeClient();
                     //HttpContent content = new StringContent("{\"stockCode\":\"" + code + "\"}", System.Text.Encoding.UTF8, "application/json");
                     using (HttpResponseMessage response = await ApiHelper.apiClient.GetAsync(url))
@@ -42,7 +50,7 @@ namespace Chat.ChatWebBrowser
 
                 if (save)
                 {
-                    string url = "https://localhost:44316/api/User/save-message";
+                    string url = this._APIConfig.Value.url + "User/save-message";
                     ApiHelper.InicializeClient();
                     Message messageToInsert = new Message()
                     {

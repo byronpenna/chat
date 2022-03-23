@@ -37,6 +37,8 @@ namespace Chat.ChatWebBrowser
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(1);//You can set Time   
             });
+
+            services.Configure<MyAPIConfig>(Configuration.GetSection("APIConfig"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -49,8 +49,8 @@ namespace Chat.Repositories.EFCore.DataContext
                 );
 
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, UserName = "byronpenna", Email="byronpenna@gmail.com",Password="byronpenna123"},
-                new User { Id = 2, UserName = "diana_alfaro", Email = "diana@gmail.com", Password = "diana123" }
+                new User { Id = 1, UserName = "byronpenna", Email="byronpenna@gmail.com",Password= "cadaefedfef59f3b2eadd7147d4b6891" },
+                new User { Id = 2, UserName = "diana_alfaro", Email = "diana@gmail.com", Password = "cadaefedfef59f3b2eadd7147d4b6891" }
                 );
         }
     }
