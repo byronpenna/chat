@@ -32,7 +32,6 @@ namespace Chat.Repositories.EFCore.Repositories
                 messages = (
                     from m in Context.Messages
                     join user in Context.Users on m.UserId equals user.Id
-                    join r in Context.ChatRooms on m.UserId equals r.Id
                     where m.RoomId == roomID
                     orderby m.MessageId descending
                     select new Message { 
@@ -42,9 +41,7 @@ namespace Chat.Repositories.EFCore.Repositories
                         UserId = m.UserId,
                         room = new ChatRoom
                         {
-                            Id = m.RoomId,
-                            Name = r.Name,
-                            CreatedDate = r.CreatedDate
+                            Id = m.RoomId
                         },
                         user = new User { 
                             Id = user.Id,
@@ -59,7 +56,7 @@ namespace Chat.Repositories.EFCore.Repositories
             }
             catch(Exception ex)
             {
-
+                string y = "";
             }
             return messages;
         }

@@ -48,15 +48,31 @@ namespace Chat.ChatWebBrowser.Controllers
             return RedirectToAction("Index","Chat");
             //return View();
         }
-        /*public async Task<IActionResult> Register()
+        public async Task<IActionResult> RegisterAction()
         {
+            ApiHelper.InicializeClient();
             User usr = new User()
             {
                 UserName = Request.Form["txtUserName"],
-                Password = Encryptor.MD5Hash(Request.Form["txtPass"])
+                Password = Encryptor.MD5Hash(Request.Form["txtPass"]),
+                Email = Request.Form["txtEmail"]
             };
+            string url = "https://localhost:44316/api/User/create-user";
+            string responseContent = "";
+            HttpContent content = new StringContent(JsonConvert.SerializeObject(usr), System.Text.Encoding.UTF8, "application/json");
+            using (HttpResponseMessage response = await ApiHelper.apiClient.PostAsync(url, content))
+            {
+                responseContent = await response.Content.ReadAsStringAsync();
+            }
+            HttpContext.Session.SetString("userID", responseContent);
+            return RedirectToAction("Index", "Chat");
+
+        }
+        public IActionResult Register()
+        {
+            
             return View();
-        }*/
+        }
         public IActionResult logout()
         {
             HttpContext.Session.SetString("userID", null);

@@ -28,7 +28,6 @@ namespace Chat.ChatWebBrowser
                 {
                     save = false;
                     int i = message.IndexOf("=");
-                    //int strlength = message.Length - i + 1;
                     string code = message.Substring(i + 1);
                     string url = "https://localhost:44316/api/User/get-stock-by-command?stockCode="+ code;
                     ApiHelper.InicializeClient();
