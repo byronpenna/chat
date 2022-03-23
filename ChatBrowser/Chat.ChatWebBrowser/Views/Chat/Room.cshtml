@@ -1,5 +1,5 @@
 ﻿@model int
-
+@using Chat.Entities.POCOEntities;
 <h1>@Chat.ChatWebBrowser.Controllers.ChatController.Rooms.GetValueOrDefault(Model)</h1>
 <div class="row">
     <div class="col-12">
@@ -13,12 +13,18 @@
 <div class="row">
     <div class="col-6">
         <div id="messages">
-
+            @foreach(Message message in ViewBag.messages)
+            {
+                <div>
+                    <b>@message.user.UserName says:</b>
+                    @message.content
+                </div>
+            }
         </div>
     </div>
     <div class="col-6">
         <div id="notifications">
-
+            
         </div>
     </div>
 </div>

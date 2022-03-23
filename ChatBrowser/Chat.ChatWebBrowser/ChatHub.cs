@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Chat.Entities.POCOEntities;
 
 namespace Chat.ChatWebBrowser
 {
@@ -12,13 +16,52 @@ namespace Chat.ChatWebBrowser
         }
         public async Task SendMessage(string room,string user,string message)
         {
-            var isAPIcall = message.Contains("/stock=");
-            if (isAPIcall)
+            try
             {
-                decimal price = getPrice();
-                message = "APPL.US quote is $" + price.ToString("#.##") + " per share.";
+                bool save = true;
+                var isAPIcall = message.Contains("/stock=");
+                if (isAPIcall)
+                {
+                    save = false;
+                    int i = message.IndexOf("=");
+                    //int strlength = message.Length - i + 1;
+                    string code = message.Substring(i + 1);
+                    string url = "https://localhost:44316/api/User/get-stock-by-command";
+                    ApiHelper.InicializeClient();
+                    HttpContent content = new StringContent("{\"stockCode\":\"" + code + "\"}", System.Text.Encoding.UTF8, "application/json");
+                    using (HttpResponseMessage response = await ApiHelper.apiClient.PostAsync(url, content))
+                    {
+                        message = await response.Content.ReadAsStringAsync();
+                    }
+                    //decimal price = getPrice();
+                    //message = "APPL.US quote is $" + price.ToString("#.##") + " per share.";
+                }
+
+                if (save)
+                {
+                    string url = "https://localhost:44316/api/User/save-message";
+                    ApiHelper.InicializeClient();
+                    Message messageToInsert = new Message()
+                    {
+                        content = message,
+                        createdDate = DateTime.Now,
+                        UserId = 1,
+                        RoomId = 1
+                    
+                    };
+                    string jsonToSend = JsonConvert.SerializeObject(messageToInsert);
+                    HttpContent content = new StringContent(jsonToSend, System.Text.Encoding.UTF8, "application/json");
+                    string success = "";
+                    using (HttpResponseMessage response = await ApiHelper.apiClient.PostAsync(url,content))
+                    {
+                        success = await response.Content.ReadAsStringAsync();
+                    }
+                }
             }
-                
+            catch (Exception ex)
+            {
+                string y = "";
+            }
             await Clients.Group(room).SendAsync("ReceiveMessage",user, message);
         }
 

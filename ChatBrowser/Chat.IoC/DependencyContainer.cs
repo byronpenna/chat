@@ -28,6 +28,8 @@ namespace Chat.IoC
             );
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
+
+            services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             // user 
             services.AddMediatR(typeof(CreateUserInteractor));

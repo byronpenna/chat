@@ -1,11 +1,14 @@
-﻿<div class="row">
+﻿
+@using Chat.Entities.POCOEntities;
+
+<div class="row">
     <div class="col-md-8 offset-2">
         <h2>Chat room</h2>
         <ul class="list-group">
-            @foreach(var r in Chat.ChatWebBrowser.Controllers.ChatController.Rooms)
+            @foreach(ChatRoom r in ViewBag.rooms)
             {
                 <li class="list-group-item">
-                    <a href="~/Chat/Room?room=@r.Key">@r.Value</a>
+                    <a href="~/Chat/Room?room=@r.Id">@r.Name</a>
                 </li>
             }
         </ul>

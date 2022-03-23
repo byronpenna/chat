@@ -32,10 +32,26 @@ namespace Chat.Repositories.EFCore.Repositories
                 messages = (
                     from m in Context.Messages
                     join user in Context.Users on m.UserId equals user.Id
+                    join r in Context.ChatRooms on m.UserId equals r.Id
                     where m.RoomId == roomID
-                    orderby m.MessageId
+                    orderby m.MessageId descending
                     select new Message { 
-                        MessageId = m.MessageId,user = new User { Id = user.Id,UserName = user.UserName }
+                        MessageId = m.MessageId,
+                        content = m.content,
+                        RoomId = m.RoomId,
+                        UserId = m.UserId,
+                        room = new ChatRoom
+                        {
+                            Id = m.RoomId,
+                            Name = r.Name,
+                            CreatedDate = r.CreatedDate
+                        },
+                        user = new User { 
+                            Id = user.Id,
+                            UserName = user.UserName,
+                            Email = user.Email,
+                            Password = ""
+                        }
                     }
                     ).ToList();
                     

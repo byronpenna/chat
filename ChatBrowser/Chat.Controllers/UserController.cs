@@ -16,6 +16,9 @@ using Chat.UseCases.CreateMessage;
 using Chat.UseCases.GetMessage;
 using Chat.UseCasesDTOs.GetStock;
 using Chat.UseCases.GetStock;
+using Chat.UseCases.GetRooms;
+using Chat.UseCasesDTOs.Rooms;
+using Chat.Entities.POCOEntities;
 
 namespace Chat.Controllers
 {
@@ -55,21 +58,30 @@ namespace Chat.Controllers
             await Mediator.Send(res);
             return Presenter.Content;
         }
-
-        [HttpPost("get-message-by-room")]
-        public async Task<ActionResult<string>> getMessageByRoom(GetMessageByRoomParams messageparams)
+        // get request
+        [HttpGet("get-rooms")]
+        public async Task<ActionResult<List<ChatRoom>>> getRooms([FromQuery]GetRoomsParams roomParams)
         {
-            MessageByRoomPresenter presenter = new MessageByRoomPresenter();
-            var res = new GetMessageByRoomInputPort(messageparams, presenter);
+
+            GetRoomPresenter presenter = new GetRoomPresenter();
+            var res = new GetRoomInputPort(roomParams, presenter);
             var x = await Mediator.Send(res);
             return presenter.Content;
         }
-        [HttpPost("get-stock-by-command")]
+        [HttpGet("get-message-by-room")]
+        public async Task<ActionResult<string >> getMessageByRoom([FromQuery]GetMessageByRoomParams messageparams)
+        {
+            MessageByRoomPresenter presenter = new MessageByRoomPresenter();
+            var res = new GetMessageByRoomInputPort(messageparams, presenter);
+            await Mediator.Send(res);
+            return presenter.Content;
+        }
+        [HttpGet("get-stock-by-command")]
         public async Task<ActionResult<string>> getStockByCommand(GetMessageParams getStockParams)
         {
             GetStockPresenter presenter = new GetStockPresenter();
             var res = new GetStockInputPort(getStockParams, presenter);
-            var x = await Mediator.Send(res);
+            await Mediator.Send(res);
             return presenter.Content;
         }
     }

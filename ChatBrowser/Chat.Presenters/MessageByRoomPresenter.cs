@@ -13,7 +13,9 @@ namespace Chat.Presenters
         public string Content { get; set; } 
         public void Handle(List<Message> messages)
         {
+            //Content = messages;
             Content = JsonConvert.SerializeObject(messages);
+            //Content = System.Text.Json.JsonSerializer.Serialize(messages);
             //Content = messages;
         }
     }
