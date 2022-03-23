@@ -1,9 +1,11 @@
 using Chat.IoC;
+using Chat.Repositories.EFCore.DataContext;
 using Chat.WebExceptionsPresenter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -54,6 +56,13 @@ namespace Chat.WebApi
             app.UseRouting();
 
             app.UseAuthorization();
+
+
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<ChatContext>();
+                context.Database.Migrate();
+            }
 
             app.UseEndpoints(endpoints =>
             {

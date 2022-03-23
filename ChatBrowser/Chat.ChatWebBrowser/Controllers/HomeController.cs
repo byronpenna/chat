@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Chat.Entities.POCOEntities;
+using Chat.ChatWebBrowser.Security;
 
 namespace Chat.ChatWebBrowser.Controllers
 {
@@ -30,7 +31,7 @@ namespace Chat.ChatWebBrowser.Controllers
             User usr = new User()
             {
                 UserName = Request.Form["txtUserName"],
-                Password = Request.Form["txtPass"]
+                Password = Encryptor.MD5Hash(Request.Form["txtPass"])
             };
             HttpContent content = new StringContent(JsonConvert.SerializeObject(usr), System.Text.Encoding.UTF8, "application/json");
             using (HttpResponseMessage response = await ApiHelper.apiClient.PostAsync(url,content))
@@ -47,6 +48,15 @@ namespace Chat.ChatWebBrowser.Controllers
             return RedirectToAction("Index","Chat");
             //return View();
         }
+        /*public async Task<IActionResult> Register()
+        {
+            User usr = new User()
+            {
+                UserName = Request.Form["txtUserName"],
+                Password = Encryptor.MD5Hash(Request.Form["txtPass"])
+            };
+            return View();
+        }*/
         public IActionResult logout()
         {
             HttpContext.Session.SetString("userID", null);
