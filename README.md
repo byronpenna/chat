@@ -16,11 +16,11 @@ Project current is configured to work with localdb with migrations.
 As soon as you build the project migration will run just you need 
 to take in count string connections that are located in:
 
-ChatBrowser/Chat.ChatWebBrowser/appsettings.json (ChatDB)
-ChatBrowser/Chat.WebApi/appsettings.json (ChatDB)
+<b>ChatBrowser/Chat.ChatWebBrowser/appsettings.json </b> (ChatDB)<br>
+<b>ChatBrowser/Chat.WebApi/appsettings.json</b> (ChatDB)
 
 In case you don't have communication with API you would check 
-ChatBrowser/Chat.ChatWebBrowser/appsettings.json (API)
+<b>ChatBrowser/Chat.ChatWebBrowser/appsettings.json</b> (API)
 
 How its work
 
