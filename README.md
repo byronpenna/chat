@@ -37,3 +37,6 @@ ChatDB
 		ChatRooms
 		Messages
 		Users
+
+Aditional notes:
+Becase you want to see backend i just print error from API has application received 

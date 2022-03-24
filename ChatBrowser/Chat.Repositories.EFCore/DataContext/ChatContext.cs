@@ -30,8 +30,15 @@ namespace Chat.Repositories.EFCore.DataContext
             // user
             modelBuilder.Entity<User>().Property(u => u.UserName).IsRequired();
             modelBuilder.Entity<User>().Property(u => u.Email).IsRequired();
+
+            modelBuilder.Entity<User>(entity => {
+                entity.HasIndex(e => e.UserName).IsUnique();
+                });
+            modelBuilder.Entity<User>(entity => {
+                entity.HasIndex(e => e.UserName).IsUnique();
+                });
             // messages
-            
+
             modelBuilder.Entity<Message>()
                 .HasOne<User>()
                 .WithMany().HasForeignKey(m => m.UserId);
