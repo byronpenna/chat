@@ -37,6 +37,12 @@ ChatDB
 		ChatRooms
 		Messages
 		Users
+User that you can use in system:
+	user: byronpenna 	pass: byronpenna123
+	user: diana_alfaro 	pass: byronpenna123
+
+but if you preffer you can add your own user.
 
 Aditional notes:
-Becase you want to see backend i just print error from API has application received 
+* Because you want to see backend I just print error from API has application received
+* To avoid having any errors with the files I prefer not configure .gitignore.

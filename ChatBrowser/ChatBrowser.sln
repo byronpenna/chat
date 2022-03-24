@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.ChatWebBrowser", "Chat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{7D3707EA-C464-4E68-8378-470F32516278}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{41C8EBED-2C1D-4E1E-BE13-FD7D33CF1D5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{94C5DE6F-1887-4B78-8EA7-B845FBDDF79F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94C5DE6F-1887-4B78-8EA7-B845FBDDF79F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94C5DE6F-1887-4B78-8EA7-B845FBDDF79F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41C8EBED-2C1D-4E1E-BE13-FD7D33CF1D5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41C8EBED-2C1D-4E1E-BE13-FD7D33CF1D5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41C8EBED-2C1D-4E1E-BE13-FD7D33CF1D5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41C8EBED-2C1D-4E1E-BE13-FD7D33CF1D5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +112,7 @@ Global
 		{F55BA1A3-9B63-4D3C-9177-1D1BBF1E47F2} = {D188CF39-785B-40F4-A849-5F5723171001}
 		{408F76FD-9447-40E2-A661-4106EC5E24D2} = {F55BA1A3-9B63-4D3C-9177-1D1BBF1E47F2}
 		{94C5DE6F-1887-4B78-8EA7-B845FBDDF79F} = {F55BA1A3-9B63-4D3C-9177-1D1BBF1E47F2}
+		{41C8EBED-2C1D-4E1E-BE13-FD7D33CF1D5D} = {7D3707EA-C464-4E68-8378-470F32516278}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {42984716-2FEB-4E3C-A18E-A95B3B0118A2}
