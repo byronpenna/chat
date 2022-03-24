@@ -32,17 +32,18 @@ and by it self are scalables (Not only system bot are decoupled)
 
 
 Database structure
-ChatDB
-	Tables:
-		ChatRooms
-		Messages
-		Users
-User that you can use in system:
-	user: byronpenna 	pass: byronpenna123
-	user: diana_alfaro 	pass: byronpenna123
+ChatDB<br>
+&nbsp;&nbsp;Tables:<br>
+&nbsp;&nbsp;&nbsp;ChatRooms<br>
+&nbsp;&nbsp;&nbsp;Messages<br>
+&nbsp;&nbsp;&nbsp;Users<br>
 
-but if you preffer you can add your own user.
-
-Aditional notes:
-* Because you want to see backend I just print error from API has application received
-* To avoid having any errors with the files I prefer not configure .gitignore.
+User that you can use in system:<br>
+&nbsp;&nbsp;user: byronpenna&nbsp;&nbsp; 	pass: byronpenna123<br>
+&nbsp;&nbsp;user: diana_alfaro&nbsp;&nbsp; 	pass: byronpenna123<br>
+<br>
+but if you preffer you can add your own user.<br>
+<br>
+Aditional notes:<br>
+* Because you want to see backend I just print error from API has application received<br>
+* To avoid having any errors with the files I prefer not configure .gitignore.<br>
