@@ -38,6 +38,10 @@ ChatDB<br>
 &nbsp;&nbsp;&nbsp;Messages<br>
 &nbsp;&nbsp;&nbsp;Users<br>
 
+<br><br>
+<b>Testing stock</b><br>
+APLE.US<br>
+aapl.us<br>
 User that you can use in system:<br>
 &nbsp;&nbsp;user: byronpenna&nbsp;&nbsp; 	pass: byronpenna123<br>
 &nbsp;&nbsp;user: diana_alfaro&nbsp;&nbsp; 	pass: byronpenna123<br>
