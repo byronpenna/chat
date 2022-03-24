@@ -95,7 +95,6 @@ namespace Chat.ChatWebBrowser.Controllers
                 {
                     error = true;
                 }
-
                 //
             }
 

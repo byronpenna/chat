@@ -34,7 +34,7 @@ namespace Chat.Controllers
         }
 
         [HttpPost("create-user")]
-        public async Task<ActionResult<int>> CreateUser(CreateUserParams userparams)
+        public async Task<ActionResult<User>> CreateUser(CreateUserParams userparams)
         {
             
             CreateUserPresenter Presenter = new CreateUserPresenter();

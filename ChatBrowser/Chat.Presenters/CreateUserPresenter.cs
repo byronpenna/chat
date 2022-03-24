@@ -1,4 +1,5 @@
-﻿using Chat.UseCases.Common.Ports;
+﻿using Chat.Entities.POCOEntities;
+using Chat.UseCases.Common.Ports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Chat.Presenters
 {
-    public class CreateUserPresenter : IPresenter<int, int>
+    public class CreateUserPresenter : IPresenter<User, User>
     {
-        public int Content { get;  set; }
+        public User Content { get;  set; }
         
-        public void Handle(int response)
+        public void Handle(User response)
         {
             Content = response;
         }

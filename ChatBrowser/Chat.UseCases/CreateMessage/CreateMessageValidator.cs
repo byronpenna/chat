@@ -22,9 +22,6 @@ namespace Chat.UseCases.CreateMessage
                 .NotEmpty()
                 .WithMessage("Room must define a user");
         }
-        public bool isNumber(string n)
-        {
-            return true;
-        }
+        
     }
 }

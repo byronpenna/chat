@@ -12,6 +12,8 @@ using CsvHelper;
 using System.IO;
 using CsvHelper.TypeConversion;
 using Chat.UseCasesDTOs.GetStock;
+using Chat.UseCases.Common.Validators;
+using FluentValidation;
 
 namespace Chat.UseCases.GetStock
 {
@@ -20,20 +22,28 @@ namespace Chat.UseCases.GetStock
 
         readonly IMessageRepository MessageRepository;
         readonly IUnitOfWork UnitOfWork;
+        readonly IEnumerable<IValidator<GetStockInputPort>> Validators;
+
         public GetStockInteractor(
             IMessageRepository messageRepository,
-            IUnitOfWork unitOfWork
+            IUnitOfWork unitOfWork,
+            IEnumerable<IValidator<GetStockInputPort>> validators
+
             )
         {
 
             MessageRepository = messageRepository;
             UnitOfWork = unitOfWork;
+            Validators = validators;
         }
 
-        protected override Task<int> Handle(
+        protected async override Task Handle(
                 GetStockInputPort request,
                 CancellationToken cancellationToken)
         {
+            await Validator<GetStockInputPort>.Validate(request, Validators);
+
+
             string url = "https://stooq.com/q/l/?s="+request.RequestData.stockCode+"&f=sd2t2ohlcv&h&e=csv";
             string handleResponse = "";
             List<CSVStock> records = null;
@@ -54,7 +64,7 @@ namespace Chat.UseCases.GetStock
                 }
 
             }
-            catch(TypeConverterException ex)
+            catch(TypeConverterException)
             {
                 handleResponse = "Stock code is not valid";
             }
@@ -67,7 +77,6 @@ namespace Chat.UseCases.GetStock
                 handleResponse = records[0].Open.ToString();
             }
             request.OutputPort.Handle(handleResponse);
-            return Task.FromResult(1);
         }
     }
 

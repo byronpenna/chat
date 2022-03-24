@@ -1,5 +1,7 @@
 ﻿using Chat.Entities.Interfaces;
 using Chat.Entities.POCOEntities;
+using Chat.UseCases.Common.Validators;
+using FluentValidation;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -15,31 +17,36 @@ namespace Chat.UseCases.GetRooms
 
         readonly IRoomRepository RoomRepository;
         readonly IUnitOfWork UnitOfWork;
+        readonly IEnumerable<IValidator<GetRoomInputPort>> Validators;
 
         public GetRoomInteractor(
             IRoomRepository roomRepository,
-            IUnitOfWork unitOfWork
+            IUnitOfWork unitOfWork,
+            IEnumerable<IValidator<GetRoomInputPort>> validators
+
             )
         {
 
             RoomRepository = roomRepository;
             UnitOfWork = unitOfWork;
+            Validators = validators;
         }
 
-        protected override Task<string> Handle(
+        protected async override Task Handle(
                 GetRoomInputPort request,
                 CancellationToken cancellationToken)
         {
+            await Validator<GetRoomInputPort>.Validate(request, Validators);
+
             List<ChatRoom> rooms = null;
             try
             {
                 rooms = RoomRepository.get();
-            }catch (Exception ex)
+            }catch (Exception)
             {
 
             }
             request.OutputPort.Handle(rooms);
-            return Task.FromResult("1");
         }
     }
 }

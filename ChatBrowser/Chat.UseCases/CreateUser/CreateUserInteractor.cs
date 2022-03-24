@@ -50,7 +50,7 @@ namespace Chat.UseCases.CreateUser
             {
                 throw new GeneralException("Error creating user", ex.Message);
             }
-            request.OutputPort.Handle(user.Id);
+            request.OutputPort.Handle(user);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Chat.UseCases.CreateMessage
             CreateMessageInputPort request,
             CancellationToken cancellationToken)
         {
-            var x = await Validator<CreateMessageInputPort>.Validate(request, Validators);
+            await Validator<CreateMessageInputPort>.Validate(request, Validators);
 
             Message message = new Message
             {

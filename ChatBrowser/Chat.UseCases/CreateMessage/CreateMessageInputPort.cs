@@ -1,4 +1,5 @@
-﻿using Chat.UseCases.Common.Ports;
+﻿using Chat.Entities.POCOEntities;
+using Chat.UseCases.Common.Ports;
 using Chat.UseCasesDTOs.CreateMessage;
 using System;
 using System.Collections.Generic;
