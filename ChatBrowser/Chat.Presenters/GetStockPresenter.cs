@@ -12,13 +12,7 @@ namespace Chat.Presenters
         public void Handle(string messages)
         {
             Content = messages;
-            if(
-                messages != "Stock code is not valid"
-                && messages != "Unexpected error"
-                )
-            {
-                Content = "APPL.US quote is $" + messages + " per share ";
-            }
+            
             //Content = messages;
         }
     }

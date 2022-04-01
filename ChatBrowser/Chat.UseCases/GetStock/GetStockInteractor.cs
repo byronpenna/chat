@@ -76,6 +76,14 @@ namespace Chat.UseCases.GetStock
             {
                 handleResponse = records[0].Open.ToString();
             }
+            if (
+                handleResponse != "Stock code is not valid"
+                && handleResponse != "Unexpected error"
+                )
+            {
+                handleResponse = request.RequestData.stockCode + " quote is $" + handleResponse + " per share ";
+            }
+
             request.OutputPort.Handle(handleResponse);
         }
     }
