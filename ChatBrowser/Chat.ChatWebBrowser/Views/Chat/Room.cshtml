@@ -40,25 +40,21 @@
             connection.invoke("AddToGroup","@Model")
         }
     ).catch((e) => {
-        console.log("error es");
-        console.error(e);
     });
 
     document.getElementById("btnSend").addEventListener("click",(event) => {
         
-        console.log("btn Send");
         let room = "@Model";
         let user = document.getElementById("user").value;
         
         let message = document.getElementById("message").value;
         if(message != ""){
             let encriptedMessage = btoa(message);
-            console.log("Encripted",encriptedMessage);
             let legible = atob(encriptedMessage);
-            console.log("Legible",legible);
-        
             connection.invoke("SendMessage",room,user,message).catch(
-                (error) => { console.error(error.toString()); }
+                (error) => { 
+                    
+                }
 
             );
         }
@@ -74,7 +70,7 @@
     });
 
     connection.on("ReceiveMessage",(user,message) => {
-        console.log("Reci");
+        
         var message = "<div> <b>"+user+" says: </b> "+message+" </div> ";
         document.getElementById("messages").innerHTML = message + document.getElementById("messages").innerHTML;
     });

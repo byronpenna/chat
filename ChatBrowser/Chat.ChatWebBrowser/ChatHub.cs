@@ -37,14 +37,13 @@ namespace Chat.ChatWebBrowser
                     save = false;
                     int i = message.IndexOf("=");
                     string code = message.Substring(i + 1);
-                    string url = this._APIConfig.Value.url + "User/get-stock-by-command?stockCode=" + code;
+
+                    string url = string.Format(this._APIConfig.Value.stockMethod,code);
                     ApiHelper.InicializeClient();
                     using (HttpResponseMessage response = await ApiHelper.apiClient.GetAsync(url))
                     {
                         message = await response.Content.ReadAsStringAsync();
                     }
-                    //decimal price = getPrice();
-                    //message = "APPL.US quote is $" + price.ToString("#.##") + " per share.";
                 }
 
                 if (save)

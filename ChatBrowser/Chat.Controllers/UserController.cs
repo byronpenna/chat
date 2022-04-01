@@ -78,7 +78,7 @@ namespace Chat.Controllers
             return presenter.Content;
         }
         [HttpGet("get-stock-by-command")]
-        public async Task<ActionResult<string>> getStockByCommand([FromQuery]GetMessageParams getStockParams)
+        public async Task<ActionResult<string>> getStockByCommand([FromQuery] GetMessageParams getStockParams)
         {
             GetStockPresenter presenter = new GetStockPresenter();
             var res = new GetStockInputPort(getStockParams, presenter);
