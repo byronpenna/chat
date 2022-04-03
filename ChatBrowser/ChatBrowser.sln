@@ -41,9 +41,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.ChatWebBrowser", "Chat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{7D3707EA-C464-4E68-8378-470F32516278}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Repositories.EFCore.XUnitTest", "Chat.Repositories.EFCore.XUnitTest\Chat.Repositories.EFCore.XUnitTest.csproj", "{1B126A94-342C-4628-9679-ADF31010DE19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Repositories.EFCore.XUnitTest", "Chat.Repositories.EFCore.XUnitTest\Chat.Repositories.EFCore.XUnitTest.csproj", "{1B126A94-342C-4628-9679-ADF31010DE19}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.RabbitMQProcessor", "Chat.RabbitMQProcessor\Chat.RabbitMQProcessor.csproj", "{A36E440E-EC21-4755-8862-0666E1E24C32}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E564CD7D-BEFC-4620-9435-4D2AAC4FE011}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,10 @@ Global
 		{A36E440E-EC21-4755-8862-0666E1E24C32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A36E440E-EC21-4755-8862-0666E1E24C32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A36E440E-EC21-4755-8862-0666E1E24C32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E564CD7D-BEFC-4620-9435-4D2AAC4FE011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E564CD7D-BEFC-4620-9435-4D2AAC4FE011}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E564CD7D-BEFC-4620-9435-4D2AAC4FE011}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E564CD7D-BEFC-4620-9435-4D2AAC4FE011}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
