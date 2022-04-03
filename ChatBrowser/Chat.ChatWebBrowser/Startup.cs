@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Chat.Repositories.EFCore.DataContext;
 using Chat.Entities.POCOEntities;
 using Microsoft.EntityFrameworkCore;
+using Chat.ChatWebBrowser.Configurations;
 
 namespace Chat.ChatWebBrowser
 {
@@ -31,14 +32,15 @@ namespace Chat.ChatWebBrowser
             services.AddControllersWithViews();
             services.AddSignalR();
             services.AddChatServices(Configuration);
-            //services.AddDbContext<ChatContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ChatDB")));
-            //services.AddIdentity<IdentityUser,IdentityRole>().AddUserStore<User>();
+            
             services.AddDistributedMemoryCache();
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(1);//You can set Time   
             });
-
+            #region "Services configuration"
             services.Configure<MyAPIConfig>(Configuration.GetSection("APIConfig"));
+            services.Configure<RabbitMQConfig>(Configuration.GetSection("RabbitMQ"));
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

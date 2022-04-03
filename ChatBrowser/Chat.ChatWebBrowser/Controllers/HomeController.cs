@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using Chat.Entities.POCOEntities;
 using Chat.ChatWebBrowser.Security;
 using Microsoft.Extensions.Options;
+using Chat.ChatWebBrowser.Configurations;
 
 namespace Chat.ChatWebBrowser.Controllers
 {

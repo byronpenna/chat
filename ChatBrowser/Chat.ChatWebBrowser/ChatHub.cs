@@ -7,6 +7,11 @@ using Chat.Entities.POCOEntities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Chat.ChatWebBrowser.RabbitMQ;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System.Text;
+using Chat.ChatWebBrowser.Configurations;
 
 namespace Chat.ChatWebBrowser
 {
@@ -14,14 +19,16 @@ namespace Chat.ChatWebBrowser
     public class ChatHub:Hub
     {
         private readonly IOptions<MyAPIConfig> _APIConfig;
-        public ChatHub( IOptions<MyAPIConfig> config)
+        private readonly IOptions<RabbitMQConfig> _RabbitConfig;
+        private Sender _rabbitMQSender;
+        public ChatHub( 
+            IOptions<MyAPIConfig> config,
+            IOptions<RabbitMQConfig> rabbitConfig
+            )
         {
             _APIConfig = config;
-        }
-        public decimal getPrice()
-        {
-            decimal price = 93.42m;
-            return price;
+            _RabbitConfig = rabbitConfig;
+            this._rabbitMQSender = new Sender(rabbitConfig);
         }
         public async Task SendMessage(string room,string user,string message)
         {
@@ -32,7 +39,11 @@ namespace Chat.ChatWebBrowser
             {
                 bool save = true;
                 var isAPIcall = message.Contains("/stock=");
-                if (isAPIcall)
+
+                //set to rabitMQ
+                this._rabbitMQSender.Send(room+"-sender",message);
+
+                /*if (isAPIcall)
                 {
                     save = false;
                     int i = message.IndexOf("=");
@@ -44,8 +55,9 @@ namespace Chat.ChatWebBrowser
                     {
                         message = await response.Content.ReadAsStringAsync();
                     }
-                }
+                }*/
 
+                
                 if (save)
                 {
                     string url = this._APIConfig.Value.url + "User/save-message";
@@ -65,6 +77,30 @@ namespace Chat.ChatWebBrowser
                         success = await response.Content.ReadAsStringAsync();
                     }
                 }
+
+                /*var factory = new ConnectionFactory
+                {
+                    HostName = "localhost",
+                    UserName = "byronpenna",
+                    Password = "byronpenna123"
+                };
+                using (var connection = factory.CreateConnection())
+                {
+                    using (var channel = connection.CreateModel())
+                    {
+                        channel.QueueDeclare("roomQueue", false, false, false, null);
+                        var consumer = new EventingBasicConsumer(channel);
+                        consumer.Received += (model, ea) =>
+                        {
+                            var body = ea.Body.Span;
+                            message = Encoding.UTF8.GetString(body);
+
+                        };
+
+                        channel.BasicConsume("roomQueue", true, consumer);
+                    }
+                }*/
+
             }
             catch (Exception ex)
             {

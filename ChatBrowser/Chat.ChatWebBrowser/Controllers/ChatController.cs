@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
+using Chat.ChatWebBrowser.RabbitMQ;
+using Chat.ChatWebBrowser.Configurations;
 
 namespace Chat.ChatWebBrowser.Controllers
 {
@@ -16,10 +18,27 @@ namespace Chat.ChatWebBrowser.Controllers
 
         private readonly ILogger<HomeController> _logger;
         private readonly IOptions<MyAPIConfig> _APIConfig;
-        public ChatController(ILogger<HomeController> logger, IOptions<MyAPIConfig> config)
+        private readonly IOptions<RabbitMQConfig> _RabbitConfig;
+        public ChatController(
+            ILogger<HomeController> logger,
+            IOptions<MyAPIConfig> config,
+            IOptions<RabbitMQConfig> rabbitConfig
+            )
         {
             _APIConfig = config;
             _logger = logger;
+            _RabbitConfig = rabbitConfig;
+    }
+        public string RabbitTestReceived()
+        {
+            Receiver r = new Receiver();
+            return r.method();
+        }
+        public string RabbitTest()
+        {
+            Sender s = new Sender(_RabbitConfig);
+            
+            return "";
         }
         public async Task<IActionResult> Index()
         {

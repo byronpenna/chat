@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Chat.UseCasesDTOs\Chat.UseCasesDTOs.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="RabbitMQ\" />
+  </ItemGroup>
+
 </Project>

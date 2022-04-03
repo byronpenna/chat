@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{7D37
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Repositories.EFCore.XUnitTest", "Chat.Repositories.EFCore.XUnitTest\Chat.Repositories.EFCore.XUnitTest.csproj", "{1B126A94-342C-4628-9679-ADF31010DE19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.RabbitMQProcessor", "Chat.RabbitMQProcessor\Chat.RabbitMQProcessor.csproj", "{A36E440E-EC21-4755-8862-0666E1E24C32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{1B126A94-342C-4628-9679-ADF31010DE19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B126A94-342C-4628-9679-ADF31010DE19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B126A94-342C-4628-9679-ADF31010DE19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A36E440E-EC21-4755-8862-0666E1E24C32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A36E440E-EC21-4755-8862-0666E1E24C32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A36E440E-EC21-4755-8862-0666E1E24C32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A36E440E-EC21-4755-8862-0666E1E24C32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,6 +119,7 @@ Global
 		{408F76FD-9447-40E2-A661-4106EC5E24D2} = {F55BA1A3-9B63-4D3C-9177-1D1BBF1E47F2}
 		{94C5DE6F-1887-4B78-8EA7-B845FBDDF79F} = {F55BA1A3-9B63-4D3C-9177-1D1BBF1E47F2}
 		{1B126A94-342C-4628-9679-ADF31010DE19} = {7D3707EA-C464-4E68-8378-470F32516278}
+		{A36E440E-EC21-4755-8862-0666E1E24C32} = {F55BA1A3-9B63-4D3C-9177-1D1BBF1E47F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {42984716-2FEB-4E3C-A18E-A95B3B0118A2}

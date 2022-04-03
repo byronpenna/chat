@@ -1,4 +1,4 @@
-﻿namespace Chat.ChatWebBrowser
+﻿namespace Chat.ChatWebBrowser.Configurations
 {
     public class MyAPIConfig
     {
