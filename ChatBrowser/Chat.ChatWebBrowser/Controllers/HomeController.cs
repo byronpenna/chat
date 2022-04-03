@@ -46,12 +46,20 @@ namespace Chat.ChatWebBrowser.Controllers
             };
             HttpContent content = new StringContent(JsonConvert.SerializeObject(usr), System.Text.Encoding.UTF8, "application/json");
             User logedUser = null;
-            using (HttpResponseMessage response = await ApiHelper.apiClient.PostAsync(url,content))
+            try
             {
-                responseContent = await response.Content.ReadAsStringAsync();
+                using (HttpResponseMessage response = await ApiHelper.apiClient.PostAsync(url, content))
+                {
+                    responseContent = await response.Content.ReadAsStringAsync();
 
-                logedUser = JsonConvert.DeserializeObject<User>(responseContent);
+                    logedUser = JsonConvert.DeserializeObject<User>(responseContent);
+                }
             }
+            catch(Exception ex)
+            {
+                string y = "";
+            }
+            
 
             if(logedUser == null)
             {
