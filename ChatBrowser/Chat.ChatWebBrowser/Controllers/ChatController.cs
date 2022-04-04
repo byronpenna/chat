@@ -24,18 +24,11 @@ namespace Chat.ChatWebBrowser.Controllers
             IOptions<MyAPIConfig> config,
             IOptions<RabbitMQConfig> rabbitConfig
             )
-        {
-            _APIConfig = config;
-            _logger = logger;
-            _RabbitConfig = rabbitConfig;
-    }
-        
-        public string RabbitTest()
-        {
-            Sender s = new Sender(_RabbitConfig);
-            
-            return "";
-        }
+            {
+                    _APIConfig = config;
+                    _logger = logger;
+                    _RabbitConfig = rabbitConfig;
+            }
         public async Task<IActionResult> Index()
         {
             var userID = HttpContext.Session.GetString("userID");
@@ -44,9 +37,7 @@ namespace Chat.ChatWebBrowser.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
-            //int userID = HttpContext.Session.getS;
-            string url = this._APIConfig.Value.url + "User/get-rooms";
+            string url = this._APIConfig.Value.url + this._APIConfig.Value.getRoomsMethod;
             ApiHelper.InicializeClient();
             string message = "";
             List<ChatRoom> chatRooms = null;
@@ -73,7 +64,7 @@ namespace Chat.ChatWebBrowser.Controllers
             ApiHelper.InicializeClient();
             string responseContent = "";
             List<Message> messages = null;
-            string url = this._APIConfig.Value.url + "User/get-message-by-room?roomID=" + room;
+            string url = string.Format(this._APIConfig.Value.getMessageByRoomMethod, room);
             HttpContent content = new StringContent("{}", System.Text.Encoding.UTF8, "application/json");
             using (HttpResponseMessage response = await ApiHelper.apiClient.GetAsync(url))
             {

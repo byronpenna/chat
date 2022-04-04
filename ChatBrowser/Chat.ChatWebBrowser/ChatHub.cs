@@ -43,8 +43,7 @@ namespace Chat.ChatWebBrowser
                 bool save = true;
                 var isAPIcall = message.Contains("/stock=");
 
-                //set to rabitMQ
-
+                
                 if (isAPIcall)
                 {
 
@@ -65,7 +64,7 @@ namespace Chat.ChatWebBrowser
                 
                 if (save)
                 {
-                    string url = this._APIConfig.Value.url + "User/save-message";
+                    string url = this._APIConfig.Value.url+this._APIConfig.Value.saveUserMethod;
                     ApiHelper.InicializeClient();
                     Message messageToInsert = new Message()
                     {
@@ -87,29 +86,6 @@ namespace Chat.ChatWebBrowser
                 {
                     message = msg;
                 }
-                /*var factory = new ConnectionFactory
-                {
-                    HostName = "localhost",
-                    UserName = "byronpenna",
-                    Password = "byronpenna123"
-                };
-                using (var connection = factory.CreateConnection())
-                {
-                    using (var channel = connection.CreateModel())
-                    {
-                        channel.QueueDeclare("roomQueue", false, false, false, null);
-                        var consumer = new EventingBasicConsumer(channel);
-                        consumer.Received += (model, ea) =>
-                        {
-                            var body = ea.Body.Span;
-                            message = Encoding.UTF8.GetString(body);
-
-                        };
-
-                        channel.BasicConsume("roomQueue", true, consumer);
-                    }
-                }*/
-
             }
             catch (Exception ex)
             {
@@ -121,7 +97,6 @@ namespace Chat.ChatWebBrowser
         public async Task AddToGroup(string room)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, room);
-            //await Clients.Group(room.ToString()).SendAsync("ReceiveMessage",)
             await Clients.Group(room).SendAsync("ShowWho", $"Alguien se conecto{Context.ConnectionId}");
 
         }

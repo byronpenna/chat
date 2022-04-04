@@ -35,7 +35,7 @@ namespace Chat.ChatWebBrowser.Controllers
                 return RedirectToAction("Index", "Chat");
             }
 
-            string url = this._APIConfig.Value.url+"User/get-by-email-pass";
+            string url = this._APIConfig.Value.url+this._APIConfig.Value.getEmailByPassMethod;
             ApiHelper.InicializeClient();
             string responseContent = "";
             string strError = "";
@@ -71,7 +71,6 @@ namespace Chat.ChatWebBrowser.Controllers
             HttpContext.Session.SetString("userName", logedUser.UserName);
 
             return RedirectToAction("Index","Chat");
-            //return View();
         }
         public async Task<IActionResult> RegisterAction()
         {
@@ -82,7 +81,7 @@ namespace Chat.ChatWebBrowser.Controllers
                 Password = Encryptor.MD5Hash(Request.Form["txtPass"]),
                 Email = Request.Form["txtEmail"]
             };
-            string url = this._APIConfig.Value.url + "User/create-user";
+            string url = this._APIConfig.Value.url + this._APIConfig.Value.createUserMethod;
             User responseContent = null;
             bool error = false;
             ApiError apiError = null;
@@ -104,7 +103,6 @@ namespace Chat.ChatWebBrowser.Controllers
                 {
                     error = true;
                 }
-                //
             }
 
             if (error)
