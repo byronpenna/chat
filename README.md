@@ -1,3 +1,7 @@
+<b>FOR RUN </b><br>
+You need to choose <b>docker compose</b> in startup project. <br>
+In case you have pool overlaps error you need to run this command. <br>
+<b>docker system prune</b>
 # chat
 Title: Net challenge financial
 
