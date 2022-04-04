@@ -6,7 +6,11 @@ services:
     build:
       context: .
       dockerfile: Chat.ChatWebBrowser/Dockerfile
-
+    depends_on:
+        - rabbit-server
+    networks:
+        dbnet:
+            ipv4_address: 172.20.0.7
   chat.webapi:
     image: ${DOCKER_REGISTRY-}chatwebapi
     build:
@@ -16,8 +20,42 @@ services:
      - "50950:80"      
     depends_on:
         - db
+    networks:
+        dbnet:
+            ipv4_address: 172.20.0.6
+
+  rabbit-server:
+    image: "rabbitmq:3.9.12-management"
+    container_name: "rabbit-server"
+    hostname: "rabbit-server"
+    labels:
+      NAME: "rabbit-server"
+    ports:
+      - "4369:4369"
+      - "5671:5671"
+      - "5672:5672"
+      - "25672:25672"
+      - "15671:15671"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=byronpenna
+      - RABBITMQ_DEFAULT_PASS=byronpenna123
+      - RABBITMQ_DEFAULT_VHOST=/
+    networks:
+        dbnet:
+            ipv4_address: 172.20.0.5
   db:
     image: "mcr.microsoft.com/mssql/server"
+    volumes:
+      - ~/apps/mssql/data:/var/lib/mssqlql/data
     environment:
      - "SA_PASSWORD=Your_password123"
      - "ACCEPT_EULA=Y"
+    networks:
+        dbnet:
+            ipv4_address: 172.20.0.4
+networks:
+  dbnet:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24

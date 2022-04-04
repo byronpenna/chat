@@ -29,11 +29,7 @@ namespace Chat.ChatWebBrowser.Controllers
             _logger = logger;
             _RabbitConfig = rabbitConfig;
     }
-        public string RabbitTestReceived()
-        {
-            Receiver r = new Receiver();
-            return r.method();
-        }
+        
         public string RabbitTest()
         {
             Sender s = new Sender(_RabbitConfig);

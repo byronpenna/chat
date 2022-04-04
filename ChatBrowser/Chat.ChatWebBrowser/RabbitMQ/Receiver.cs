@@ -1,4 +1,6 @@
-﻿using RabbitMQ.Client;
+﻿using Chat.ChatWebBrowser.Configurations;
+using Microsoft.Extensions.Options;
+using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
@@ -6,15 +8,20 @@ namespace Chat.ChatWebBrowser.RabbitMQ
 {
     public class Receiver
     {
-        public string method()
+        private readonly IOptions<RabbitMQConfig> _RabbitConfig;
+        public Receiver(IOptions<RabbitMQConfig> config)
         {
-            var message = "";
-            var factory = new ConnectionFactory
+            this._RabbitConfig = config;
+        }
+        public string Receive(string queue)
+        {
+            var factory = new ConnectionFactory()
             {
-                HostName = "localhost",
-                UserName = "byronpenna",
-                Password = "byronpenna123"
+                HostName = this._RabbitConfig.Value.Server,
+                UserName = this._RabbitConfig.Value.UserName,
+                Password = this._RabbitConfig.Value.Password
             };
+            string msg = "";
             using (var connection = factory.CreateConnection())
             {
                 using(var channel = connection.CreateModel())
@@ -24,14 +31,14 @@ namespace Chat.ChatWebBrowser.RabbitMQ
                     consumer.Received += (model, ea) =>
                     {
                         var body = ea.Body.Span;
-                        message = Encoding.UTF8.GetString(body);
+                        msg = Encoding.UTF8.GetString(body);
 
                     };
 
-                    channel.BasicConsume("roomQueue",true,consumer);
+                    channel.BasicConsume(queue,true,consumer);
                 }
             }
-            return message;
+            return msg;
         }
     }
 }

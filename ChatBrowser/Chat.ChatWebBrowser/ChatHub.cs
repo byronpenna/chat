@@ -21,6 +21,7 @@ namespace Chat.ChatWebBrowser
         private readonly IOptions<MyAPIConfig> _APIConfig;
         private readonly IOptions<RabbitMQConfig> _RabbitConfig;
         private Sender _rabbitMQSender;
+        private Receiver _rabbitMQReceiver;
         public ChatHub( 
             IOptions<MyAPIConfig> config,
             IOptions<RabbitMQConfig> rabbitConfig
@@ -29,6 +30,8 @@ namespace Chat.ChatWebBrowser
             _APIConfig = config;
             _RabbitConfig = rabbitConfig;
             this._rabbitMQSender = new Sender(rabbitConfig);
+            this._rabbitMQReceiver = new Receiver(rabbitConfig);
+
         }
         public async Task SendMessage(string room,string user,string message)
         {
@@ -41,10 +44,10 @@ namespace Chat.ChatWebBrowser
                 var isAPIcall = message.Contains("/stock=");
 
                 //set to rabitMQ
-                this._rabbitMQSender.Send(room+"-sender",message);
 
-                /*if (isAPIcall)
+                if (isAPIcall)
                 {
+
                     save = false;
                     int i = message.IndexOf("=");
                     string code = message.Substring(i + 1);
@@ -54,8 +57,10 @@ namespace Chat.ChatWebBrowser
                     using (HttpResponseMessage response = await ApiHelper.apiClient.GetAsync(url))
                     {
                         message = await response.Content.ReadAsStringAsync();
+
+                        this._rabbitMQSender.Send(room, message);
                     }
-                }*/
+                }
 
                 
                 if (save)
@@ -77,7 +82,11 @@ namespace Chat.ChatWebBrowser
                         success = await response.Content.ReadAsStringAsync();
                     }
                 }
-
+                string msg = this._rabbitMQReceiver.Receive(room);
+                if (msg != "")
+                {
+                    message = msg;
+                }
                 /*var factory = new ConnectionFactory
                 {
                     HostName = "localhost",

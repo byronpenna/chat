@@ -13,7 +13,15 @@ namespace Chat.WebApi
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            try
+            {
+
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
